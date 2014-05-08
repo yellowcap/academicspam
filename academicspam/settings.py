@@ -56,7 +56,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ########## DATABASE CONFIGURATION
 if not DEBUG:
-    DATABASES['default'] =  dj_database_url.config()
+    DATABASES = {'default': dj_database_url.config()}
 else:
     DATABASES = {
         'default': {
