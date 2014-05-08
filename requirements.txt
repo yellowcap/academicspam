@@ -8,3 +8,5 @@ boto==2.19.0
 pylint==1.0.0
 celery==3.1.9
 mysql-python==1.2.5
+dj-database-url==0.3.0
+dj-static==0.0.5
