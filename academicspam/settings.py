@@ -119,6 +119,7 @@ INSTALLED_APPS = (
     'django.contrib.gis',
 
     # Own apps
+    'spamparser',
     
     # Installed apps
     'django_extensions',
