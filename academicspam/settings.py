@@ -1,7 +1,7 @@
 """Settings for academicspam project"""
 
 ########## IMPORTS
-import os, urllib
+import os#, urllib
 ########## END IMPORTS
 
 ########## DEBUG CONFIGURATION
@@ -79,21 +79,7 @@ MIDDLEWARE_CLASSES = (
 ########## END MIDDLEWARE CONFIGURATION
 
 
-########## STATIC AND TEMPLATES CONFIGURATION
-# Additional locations of static files
-# STATICFILES_DIRS = (
-#     os.path.join(PROJECT_ROOT, 'academicspam/static'),
-# )
-
-# List of finder classes that know how to find static files in
-# various locations.
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
-
-
-# List of callables that know how to import templates from various sources.
+########## TEMPLATES CONFIGURATION
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
@@ -132,21 +118,20 @@ INSTALLED_APPS = (
 
 ########## AWS CONFIGURATION
 # Get  S3 secrets
-# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
-# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_KEY', '')
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_KEY', '')
 ########## END AWS CONFIGURATION
 
 
 ########## MEDIA FILES CONFIGURATION
 # Storage class for media files
-# DEFAULT_FILE_STORAGE = 'academicspam.utils.s3storages.MediaRootS3BotoStorage'
+DEFAULT_FILE_STORAGE = 'academicspam.utils.s3storages.MediaRootS3BotoStorage'
 
 # # Get S3 bucket name
-# AWS_STORAGE_BUCKET_NAME_MEDIA = os.environ.get('AWS_STORAGE_BUCKET_NAME_MEDIA')
+AWS_STORAGE_BUCKET_NAME_MEDIA = os.environ.get('AWS_STORAGE_BUCKET_NAME_MEDIA')
 
-# # Set the url to the bucket for serving files
-# #MEDIA_URL = 'http://media.academicspam.geodesign.webfactional.com/'
-# MEDIA_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME_MEDIA
+# Set the url to the bucket for serving files
+MEDIA_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME_MEDIA
 ########## END MEDIA FILES CONFIGURATION
 
 
@@ -154,17 +139,17 @@ INSTALLED_APPS = (
 # Local directory for local static collection (to track changed files)
 STATIC_ROOT = os.environ.get('STATIC_ROOT', '')
 
-# if os.environ.get('AWS_STORAGE_BUCKET_NAME_STATIC'):
-#     # Storage class for static files and compressor
-#     STATICFILES_STORAGE = 'academicspam.utils.s3storages.StaticRootCachedS3BotoStorage'
+if os.environ.get('AWS_STORAGE_BUCKET_NAME_STATIC'):
+    # Storage class for static files and compressor
+    STATICFILES_STORAGE = 'academicspam.utils.s3storages.StaticRootCachedS3BotoStorage'
 
-#     # Get S3 bucket name 
-#     AWS_STORAGE_BUCKET_NAME_STATIC = os.environ.get('AWS_STORAGE_BUCKET_NAME_STATIC')
+    # Get S3 bucket name 
+    AWS_STORAGE_BUCKET_NAME_STATIC = os.environ.get('AWS_STORAGE_BUCKET_NAME_STATIC')
 
-#     # Url prefix for all relative paths of static files
-#     STATIC_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME_STATIC
-# else:
-STATIC_URL = '/static/'
+    # Url prefix for all relative paths of static files
+    STATIC_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME_STATIC
+else:
+    STATIC_URL = '/static/'
 
 # # Paths to serach for static files
 STATICFILES_DIRS = (
