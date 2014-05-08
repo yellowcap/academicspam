@@ -1,3 +1,3 @@
 echo 'Installing sass'
-apt-get install rubygems
-gem install sass
+sudo apt-get install rubygems
+sudo gem install sass
