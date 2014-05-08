@@ -295,6 +295,7 @@ if DEBUG:
 
 # Heroku test
 import dj_database_url
+DATABASES = {'default': ''}
 DATABASES['default'] =  dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
