@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 import os, email, re
-from email_counter.models import Publisher, Sender, Recipient, Spam
+from spamparser.models import Publisher, Sender, Recipient, Spam
 
 path = '/Users/john/Local sites/Maildir/Maildir/new'
 

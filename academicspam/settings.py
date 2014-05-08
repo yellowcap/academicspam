@@ -52,16 +52,16 @@ LOGIN_URL = '/login/'
 
 
 ########## DATABASE CONFIGURATION
-# DATABASES = {
-#     'default': {
-#         'ENGINE':   os.environ.get('DB_ENGINE'),
-#         'NAME':     os.environ.get('DB_NAME'),
-#         'USER':     os.environ.get('DB_USER'),
-#         'PASSWORD': os.environ.get('DB_PASSWORD'),
-#         'HOST':     os.environ.get('DB_HOST'),
-#         'PORT':     os.environ.get('DB_PORT'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE':   os.environ.get('DB_ENGINE'),
+        'NAME':     os.environ.get('DB_NAME'),
+        'USER':     os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST':     os.environ.get('DB_HOST'),
+        'PORT':     os.environ.get('DB_PORT'),
+    }
+}
 ########## END DATABASE CONFIGURATION
 
 ########## MIDDLEWARE CONFIGURATION
@@ -81,9 +81,9 @@ MIDDLEWARE_CLASSES = (
 
 ########## STATIC AND TEMPLATES CONFIGURATION
 # Additional locations of static files
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'academicspam/static'),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(PROJECT_ROOT, 'academicspam/static'),
+# )
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -132,21 +132,21 @@ INSTALLED_APPS = (
 
 ########## AWS CONFIGURATION
 # Get  S3 secrets
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_KEY', '')
+# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
+# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_KEY', '')
 ########## END AWS CONFIGURATION
 
 
 ########## MEDIA FILES CONFIGURATION
 # Storage class for media files
-DEFAULT_FILE_STORAGE = 'academicspam.utils.s3storages.MediaRootS3BotoStorage'
+# DEFAULT_FILE_STORAGE = 'academicspam.utils.s3storages.MediaRootS3BotoStorage'
 
-# Get S3 bucket name
-AWS_STORAGE_BUCKET_NAME_MEDIA = os.environ.get('AWS_STORAGE_BUCKET_NAME_MEDIA')
+# # Get S3 bucket name
+# AWS_STORAGE_BUCKET_NAME_MEDIA = os.environ.get('AWS_STORAGE_BUCKET_NAME_MEDIA')
 
-# Set the url to the bucket for serving files
-#MEDIA_URL = 'http://media.academicspam.geodesign.webfactional.com/'
-MEDIA_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME_MEDIA
+# # Set the url to the bucket for serving files
+# #MEDIA_URL = 'http://media.academicspam.geodesign.webfactional.com/'
+# MEDIA_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME_MEDIA
 ########## END MEDIA FILES CONFIGURATION
 
 
@@ -154,24 +154,24 @@ MEDIA_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME_MEDIA
 # Local directory for local static collection (to track changed files)
 STATIC_ROOT = os.environ.get('STATIC_ROOT', '')
 
-if os.environ.get('AWS_STORAGE_BUCKET_NAME_STATIC'):
-    # Storage class for static files and compressor
-    STATICFILES_STORAGE = 'academicspam.utils.s3storages.StaticRootCachedS3BotoStorage'
+# if os.environ.get('AWS_STORAGE_BUCKET_NAME_STATIC'):
+#     # Storage class for static files and compressor
+#     STATICFILES_STORAGE = 'academicspam.utils.s3storages.StaticRootCachedS3BotoStorage'
 
-    # Get S3 bucket name 
-    AWS_STORAGE_BUCKET_NAME_STATIC = os.environ.get('AWS_STORAGE_BUCKET_NAME_STATIC')
+#     # Get S3 bucket name 
+#     AWS_STORAGE_BUCKET_NAME_STATIC = os.environ.get('AWS_STORAGE_BUCKET_NAME_STATIC')
 
-    # Url prefix for all relative paths of static files
-    STATIC_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME_STATIC
-else:
-    STATIC_URL = '/static/'
+#     # Url prefix for all relative paths of static files
+#     STATIC_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME_STATIC
+# else:
+STATIC_URL = '/static/'
 
-# Paths to serach for static files
+# # Paths to serach for static files
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'academicspam/static'),
 )
 
-# List of finder classes that know how to find static files in various locations.
+# # List of finder classes that know how to find static files in various locations.
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django.contrib.staticfiles.finders.FileSystemFinder',    
@@ -216,36 +216,36 @@ COMPRESS_PRECOMPILERS = (
 
 
 ########## CELERY CONFIGURATION
-BROKER_TRANSPORT = 'sqs'
+# BROKER_TRANSPORT = 'sqs'
 
-BROKER_TRANSPORT_OPTIONS = {
-    'region': 'us-east-1',
-    'polling_interval': 5,
-    'visibility_timeout': 43200
-}
+# BROKER_TRANSPORT_OPTIONS = {
+#     'region': 'us-east-1',
+#     'polling_interval': 5,
+#     'visibility_timeout': 43200
+# }
 
-BROKER_URL = 'sqs://%s:%s@' % (urllib.quote(AWS_ACCESS_KEY_ID, safe=''),
-                               urllib.quote(AWS_SECRET_ACCESS_KEY, safe=''))
+# BROKER_URL = 'sqs://%s:%s@' % (urllib.quote(AWS_ACCESS_KEY_ID, safe=''),
+#                                urllib.quote(AWS_SECRET_ACCESS_KEY, safe=''))
 
-CELERY_DEFAULT_QUEUE = os.environ.get('CELERY_DEFAULT_QUEUE', 'celery-academicspam-development')
+# CELERY_DEFAULT_QUEUE = os.environ.get('CELERY_DEFAULT_QUEUE', 'celery-academicspam-development')
 
-CELERY_QUEUES = {
-    CELERY_DEFAULT_QUEUE: {
-        'exchange': CELERY_DEFAULT_QUEUE,
-        'binding_key': CELERY_DEFAULT_QUEUE,
-    }
-}
+# CELERY_QUEUES = {
+#     CELERY_DEFAULT_QUEUE: {
+#         'exchange': CELERY_DEFAULT_QUEUE,
+#         'binding_key': CELERY_DEFAULT_QUEUE,
+#     }
+# }
 
-CELERY_RESULT_BACKEND = 'celery_s3.backends.S3Backend'
+# CELERY_RESULT_BACKEND = 'celery_s3.backends.S3Backend'
 
-CELERY_S3_BACKEND_SETTINGS = {
-    'aws_access_key_id': AWS_ACCESS_KEY_ID,
-    'aws_secret_access_key': AWS_SECRET_ACCESS_KEY,
-    'bucket': os.environ.get('CELERY_RESULTS_BUCKET_NAME'),
-}
+# CELERY_S3_BACKEND_SETTINGS = {
+#     'aws_access_key_id': AWS_ACCESS_KEY_ID,
+#     'aws_secret_access_key': AWS_SECRET_ACCESS_KEY,
+#     'bucket': os.environ.get('CELERY_RESULTS_BUCKET_NAME'),
+# }
 
-CELERY_ALWAYS_EAGER = eval(os.environ.get('CELERY_ALWAYS_EAGER', 'False'))
-CELERY_EAGER_PROPAGATES_EXCEPTIONS = CELERY_ALWAYS_EAGER
+# CELERY_ALWAYS_EAGER = eval(os.environ.get('CELERY_ALWAYS_EAGER', 'False'))
+# CELERY_EAGER_PROPAGATES_EXCEPTIONS = CELERY_ALWAYS_EAGER
 ########## END CELERY CONFIGURATION
 
 
@@ -295,22 +295,23 @@ if DEBUG:
 
 # Heroku test
 import dj_database_url
-DATABASES = {'default': ''}
-DATABASES['default'] =  dj_database_url.config()
+#DATABASES = {'default': ''}
+if not DEBUG:
+    DATABASES['default'] =  dj_database_url.config()
 
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    # Honor the 'X-Forwarded-Proto' header for request.is_secure()
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# Allow all host headers
-ALLOWED_HOSTS = ['*']
+    # Allow all host headers
+    ALLOWED_HOSTS = ['*']
 
-# Static asset configuration
-import os
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
+    # Static asset configuration
+    import os
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    STATIC_ROOT = 'staticfiles'
+    STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
 
