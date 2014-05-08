@@ -24,4 +24,7 @@ sys.path.append(os.path.join(os.path.dirname(os.path.abspath( __file__ )), '../a
 
 # Setup the django application
 from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
+#application = get_wsgi_application()
+from dj_static import Cling
+
+application = Cling(get_wsgi_application())
