@@ -3,4 +3,6 @@ python:
   - "2.7"
 install: pip install -r requirements.txt
 script:  python manage.py test
-env: SECRET_KEY='localtestsecretkey' DB_ENGINE='django.db.backends.postgresql_psycopg2' DB_USER='postgres' DB_HOST='localhost' DB_NAME='academicspam' DB_PORT='5432'
+env: SECRET_KEY='localtestsecretkey' DB_ENGINE='django.db.backends.postgresql_psycopg2' DB_USER='postgres' DB_HOST='localhost' DB_NAME='travis_ci_test' DB_PORT='5432'
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
