@@ -1,0 +1,12 @@
+language: python
+python:
+  - "2.7"
+install: pip install -r requirements.txt
+script:  python manage.py test
+env:
+ - SECRET_KEY='localtestsecretkey'
+ - DB_ENGINE='django.db.backends.mysql'
+ - DB_USER='travis'
+ - DB_HOST='localhost'
+ - DB_NAME=''
+ - DB_PORT=''
