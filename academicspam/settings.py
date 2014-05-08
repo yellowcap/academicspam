@@ -1,7 +1,7 @@
 """Settings for academicspam project"""
 
 ########## IMPORTS
-import os#, urllib
+import os, dj_database_url#, urllib
 ########## END IMPORTS
 
 ########## DEBUG CONFIGURATION
@@ -10,7 +10,7 @@ DEBUG = TEMPLATE_DEBUG = THUMBNAIL_DEBUG  = eval(os.environ.get('DEBUG', 'False'
 
 ########## GENERAL CONFIGURATION
 # Hosts
-ALLOWED_HOSTS = eval(os.environ.get('ALLOWED_HOSTS', "['127.0.0.1']"))
+ALLOWED_HOSTS = ['*']
 
 # Get the project root folder on the current computer
 PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath( __file__ )), '..')
@@ -48,20 +48,26 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # Login urls
 LOGIN_URL = '/login/'
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure() - heroku
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ########## END GENERAL CONFIGURATION
 
 
 ########## DATABASE CONFIGURATION
-DATABASES = {
-    'default': {
-        'ENGINE':   os.environ.get('DB_ENGINE'),
-        'NAME':     os.environ.get('DB_NAME'),
-        'USER':     os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST':     os.environ.get('DB_HOST'),
-        'PORT':     os.environ.get('DB_PORT'),
+if not DEBUG:
+    DATABASES['default'] =  dj_database_url.config()
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE':   os.environ.get('DB_ENGINE'),
+            'NAME':     os.environ.get('DB_NAME'),
+            'USER':     os.environ.get('DB_USER'),
+            'PASSWORD': os.environ.get('DB_PASSWORD'),
+            'HOST':     os.environ.get('DB_HOST'),
+            'PORT':     os.environ.get('DB_PORT'),
+        }
     }
-}
 ########## END DATABASE CONFIGURATION
 
 ########## MIDDLEWARE CONFIGURATION
@@ -275,28 +281,3 @@ LOGGING = {
 if DEBUG:
     INTERNAL_IPS = ('127.0.0.1',)
 ########## END DEBUG Section
-
-
-
-# Heroku test
-import dj_database_url
-#DATABASES = {'default': ''}
-if not DEBUG:
-    DATABASES['default'] =  dj_database_url.config()
-
-    # Honor the 'X-Forwarded-Proto' header for request.is_secure()
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-    # Allow all host headers
-    ALLOWED_HOSTS = ['*']
-
-    # Static asset configuration
-    #import os
-    #BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    #STATIC_ROOT = 'staticfiles'
-    #STATIC_URL = '/static/'
-
-    # STATICFILES_DIRS = (
-    #     os.path.join(BASE_DIR, 'static'),
-    # )
-
