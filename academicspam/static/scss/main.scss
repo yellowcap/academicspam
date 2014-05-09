@@ -18,8 +18,7 @@ body{
     //float:left;
     font-family: Monospace;
     color: gray;
-    margin: auto;
-    padding: 20px;
+    margin: 20px;
 
     input{
         background-color: black;
@@ -36,4 +35,11 @@ body{
     .loginform-message {
         padding: 10px 0px;
     }
+}
+
+.frontpage-logout{
+    font-family: Monospace;
+    color: gray;
+    text-decoration: none;
+    margin: 20px;
 }
