@@ -27,10 +27,10 @@ class AutoLintTests(TestCase):
             checker=check_codes
             )
 
-        command = '--reports=n --ignore=migrations {modules}'.format(
-            modules=test_modules,
-            checker=check_codes
-            )
+        # command = '--reports=n --ignore=migrations {modules}'.format(
+        #     modules=test_modules,
+        #     checker=check_codes
+        #     )
 
         # Run pylint, get results, returns (pylint_sdout, pylint_sderr)
         lint_sdout = lint.py_run(command, return_std=True, script='pylint')[0]

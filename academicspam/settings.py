@@ -94,7 +94,7 @@ TEMPLATE_LOADERS = (
 
 
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_ROOT, 'academicspam/templates'),
+    os.path.join(PROJECT_ROOT, 'academicspam/templates/'),
 )
 ########## END STATIC AND TEMPLATES CONFIGURATION
 

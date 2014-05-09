@@ -11,8 +11,8 @@ urlpatterns = patterns('',
 
     # Index, login and logout
     url(r'^$', index, name='index'),
-    #url(r'^login/', login_a, name='login'),
-    #url(r'^logout/', logout_b, name='logout'),
+    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'index.html'}),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': 'index'}),
 
     # Admin
     url(r'^admin/', include(admin.site.urls)),

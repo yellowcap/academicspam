@@ -2,14 +2,38 @@ body{
     background: black;
 }
 
-.welcome{
+.acspam-ascii{
     color: yellow;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    font-size: 9pt;
     font-family: Monospace;
     white-space: pre;
-    width: 600px;
-    height:180px;
+    //float:left;
+    padding: 20px;
+    //margin: auto;
+    font-size: 7pt;
+    //width: 600px;
+    //height:180px;
+}
+
+.loginform-container{
+    //float:left;
+    font-family: Monospace;
+    color: gray;
     margin: auto;
+    padding: 20px;
+
+    input{
+        background-color: black;
+        color: yellow;
+        border: 1px solid gray;
+        padding: 5px;
+        margin: 5px 0px;
+        &[type=submit]{
+            margin-left: 3px;
+            font-family: Monospace;
+            cursor: pointer;
+        }
+    }
+    .loginform-message {
+        padding: 10px 0px;
+    }
 }
