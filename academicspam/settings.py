@@ -148,8 +148,7 @@ STATIC_ROOT = os.environ.get('STATIC_ROOT', '')
 
 if os.environ.get('AWS_STORAGE_BUCKET_NAME_STATIC'):
     # Storage class for static files and compressor
-    STATICFILES_STORAGE = 'academicspam.utils.s3storages\
-                                .StaticRootCachedS3BotoStorage'
+    STATICFILES_STORAGE = 'academicspam.utils.s3storages.StaticRootCachedS3BotoStorage'
 
     # Get S3 bucket name
     AWS_STORAGE_BUCKET_NAME_STATIC = os.environ.get(
