@@ -2,9 +2,9 @@
 
 from __future__ import absolute_import
 
-from celery import shared_task, task
-#from scheduler.celery import celery
+from celery import shared_task
 
-@task
+@shared_task
 def hello(name='hello'):
+    """Hello world test for periodic task with celery"""
     print 'Hello celerybeat'
