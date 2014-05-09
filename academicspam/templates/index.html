@@ -1,27 +1,19 @@
-<!DOCTYPE html>
-{% load compress %}
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="csrf-token" content="{{csrf_token}}">
+{% extends 'main.html' %}
 
-        <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.png" />
+{% block body %}
 
-        <title>Academicspam</title>
+    {% include 'asciiart.html' %}
+    
+    {% if not user.is_authenticated %}
+      {% include 'loginform.html' %}
+    {% else %}
+      <div class="frontpage-links-wrapper">
+        <a class="frontpage-item">hello {{user.username}} </a>
+        <a class="frontpage-item">|</a>
+        <a class="frontpage-item" href="/admin/"> admin </a>
+        <a class="frontpage-item">|</a>
+        <a class="frontpage-item" href="/logout/"> logout</a>
+      </div>
+    {% endif%}
 
-        {% compress css %}
-            <link rel="stylesheet" href="{{ STATIC_URL }}scss/main.scss" type="text/x-scss">
-        {% endcompress %}
-
-    </head>
-
-    <body>
-      {% include 'asciiart.html' %}
-      
-      {% if not user.is_authenticated %}
-        {% include 'loginform.html' %}
-      {% else %}
-        <a class="frontpage-logout" href="/logout/">logout</a>
-      {% endif%}
-    </body>
-</html>
+{% endblock body %}
