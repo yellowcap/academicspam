@@ -8,5 +8,5 @@
 .sass-cache
 .elasticbeanstalk
 
-# Built app
-app_build.js
+# Celerybeat data
+celerybeat-schedule.db

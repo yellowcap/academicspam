@@ -2,6 +2,7 @@
 
 ########## IMPORTS
 import os, dj_database_url#, urllib
+from datetime import timedelta
 ########## END IMPORTS
 
 ########## DEBUG CONFIGURATION
@@ -119,6 +120,7 @@ INSTALLED_APPS = (
     'compressor',
     'storages',
     'south',
+    'djcelery',
 )
 ########## END APPS CONFIGURATION
 
@@ -209,17 +211,6 @@ COMPRESS_PRECOMPILERS = (
 
 
 ########## CELERY CONFIGURATION
-# BROKER_TRANSPORT = 'sqs'
-
-# BROKER_TRANSPORT_OPTIONS = {
-#     'region': 'us-east-1',
-#     'polling_interval': 5,
-#     'visibility_timeout': 43200
-# }
-
-# BROKER_URL = 'sqs://%s:%s@' % (urllib.quote(AWS_ACCESS_KEY_ID, safe=''),
-#                                urllib.quote(AWS_SECRET_ACCESS_KEY, safe=''))
-
 # CELERY_DEFAULT_QUEUE = os.environ.get('CELERY_DEFAULT_QUEUE',
 #                                         'celery-academicspam-development')
 
@@ -232,14 +223,20 @@ COMPRESS_PRECOMPILERS = (
 
 # CELERY_RESULT_BACKEND = 'celery_s3.backends.S3Backend'
 
-# CELERY_S3_BACKEND_SETTINGS = {
-#     'aws_access_key_id': AWS_ACCESS_KEY_ID,
-#     'aws_secret_access_key': AWS_SECRET_ACCESS_KEY,
-#     'bucket': os.environ.get('CELERY_RESULTS_BUCKET_NAME'),
-# }
+# Schedule periodic tasks
+CELERYBEAT_SCHEDULE = {
+    'say-hello-every-30-seconds': {
+        'task': 'spamparser.tasks.hello',
+        'schedule': timedelta(seconds=30)
+    },
+}
 
-# CELERY_ALWAYS_EAGER = eval(os.environ.get('CELERY_ALWAYS_EAGER', 'False'))
-# CELERY_EAGER_PROPAGATES_EXCEPTIONS = CELERY_ALWAYS_EAGER
+# Set db results backend
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+
+# For testing tasks
+CELERY_ALWAYS_EAGER = eval(os.environ.get('CELERY_ALWAYS_EAGER', 'False'))
+CELERY_EAGER_PROPAGATES_EXCEPTIONS = CELERY_ALWAYS_EAGER
 ########## END CELERY CONFIGURATION
 
 
