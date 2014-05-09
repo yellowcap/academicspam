@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load compress %}
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.png" />
+
+        {% compress css %}
+            <link rel="stylesheet" href="{{ STATIC_URL }}scss/main.scss" type="text/x-scss">
+        {% endcompress %}
+
+        {% block head %}
+            <title>Academicspam</title>
+        {% endblock head%}
+    </head>
+
+    <body>
+        {% block body %}
+        {% endblock body%}
+    </body>
+</html>

@@ -14,6 +14,8 @@ framework.
 
 """
 import os, sys
+from django.core.wsgi import get_wsgi_application
+from dj_static import Cling
 
 # Define settings module to use
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "academicspam.settings")
@@ -24,9 +26,6 @@ sys.path.append(os.path.join(os.path.dirname(
 
 sys.path.append(os.path.join(os.path.dirname(
                                 os.path.abspath( __file__ )), '../apps'))
-
-from django.core.wsgi import get_wsgi_application
-from dj_static import Cling
 
 # Setup the wsgi django application
 application = Cling(get_wsgi_application())
