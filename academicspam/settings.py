@@ -1,11 +1,11 @@
-"""Settings for academicspam project"""
+"""Global django settings for academicspam project"""
 
 ########## IMPORTS
 import os, dj_database_url#, urllib
 ########## END IMPORTS
 
 ########## DEBUG CONFIGURATION
-DEBUG = TEMPLATE_DEBUG = THUMBNAIL_DEBUG  = eval(os.environ.get('DEBUG', 'False'))
+DEBUG = TEMPLATE_DEBUG = eval(os.environ.get('DEBUG', 'False'))
 ########## END DEBUG CONFIGURATION
 
 ########## GENERAL CONFIGURATION
@@ -13,7 +13,8 @@ DEBUG = TEMPLATE_DEBUG = THUMBNAIL_DEBUG  = eval(os.environ.get('DEBUG', 'False'
 ALLOWED_HOSTS = ['*']
 
 # Get the project root folder on the current computer
-PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath( __file__ )), '..')
+PROJECT_ROOT = os.path.join(os.path.dirname(\
+                        os.path.abspath( __file__ )), '..')
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -112,7 +113,7 @@ INSTALLED_APPS = (
 
     # Own apps
     'spamparser',
-    
+
     # Installed apps
     'django_extensions',
     'compressor',
@@ -147,10 +148,12 @@ STATIC_ROOT = os.environ.get('STATIC_ROOT', '')
 
 if os.environ.get('AWS_STORAGE_BUCKET_NAME_STATIC'):
     # Storage class for static files and compressor
-    STATICFILES_STORAGE = 'academicspam.utils.s3storages.StaticRootCachedS3BotoStorage'
+    STATICFILES_STORAGE = 'academicspam.utils.s3storages\
+                                .StaticRootCachedS3BotoStorage'
 
-    # Get S3 bucket name 
-    AWS_STORAGE_BUCKET_NAME_STATIC = os.environ.get('AWS_STORAGE_BUCKET_NAME_STATIC')
+    # Get S3 bucket name
+    AWS_STORAGE_BUCKET_NAME_STATIC = os.environ.get(
+                                        'AWS_STORAGE_BUCKET_NAME_STATIC')
 
     # Url prefix for all relative paths of static files
     STATIC_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME_STATIC
@@ -162,10 +165,10 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'academicspam/static'),
 )
 
-# # List of finder classes that know how to find static files in various locations.
+# List of finder classes to find static files in various locations.
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'django.contrib.staticfiles.finders.FileSystemFinder',    
+    'django.contrib.staticfiles.finders.FileSystemFinder',
     'compressor.finders.CompressorFinder',
 )
 ########## END STATIC FILE CONFIGURATION
@@ -218,7 +221,8 @@ COMPRESS_PRECOMPILERS = (
 # BROKER_URL = 'sqs://%s:%s@' % (urllib.quote(AWS_ACCESS_KEY_ID, safe=''),
 #                                urllib.quote(AWS_SECRET_ACCESS_KEY, safe=''))
 
-# CELERY_DEFAULT_QUEUE = os.environ.get('CELERY_DEFAULT_QUEUE', 'celery-academicspam-development')
+# CELERY_DEFAULT_QUEUE = os.environ.get('CELERY_DEFAULT_QUEUE',
+#                                         'celery-academicspam-development')
 
 # CELERY_QUEUES = {
 #     CELERY_DEFAULT_QUEUE: {

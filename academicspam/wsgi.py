@@ -14,17 +14,18 @@ framework.
 
 """
 import os, sys
+from django.core.wsgi import get_wsgi_application
+from dj_static import Cling
 
 # Define settings module to use
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "academicspam.settings")
 
 # Add the project and the apps to the python path
-sys.path.append(os.path.join(os.path.dirname(os.path.abspath( __file__ )), '..'))
-sys.path.append(os.path.join(os.path.dirname(os.path.abspath( __file__ )), '../apps'))
+sys.path.append(os.path.join(os.path.dirname(
+                                os.path.abspath( __file__ )), '..'))
 
-# Setup the django application
-from django.core.wsgi import get_wsgi_application
-#application = get_wsgi_application()
-from dj_static import Cling
+sys.path.append(os.path.join(os.path.dirname(
+                                os.path.abspath( __file__ )), '../apps'))
 
+# Setup the wsgi django application
 application = Cling(get_wsgi_application())

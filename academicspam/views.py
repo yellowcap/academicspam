@@ -1,3 +1,5 @@
+"""Main views for this project, such as index login/logout etc"""
+
 from django.http import HttpResponse#, HttpResponseRedirect
 from django.template import RequestContext, loader
 #from django.contrib.auth import authenticate, login, logout
@@ -6,6 +8,8 @@ from django.template import RequestContext, loader
 ###############################################################################
 #@login_required
 def index(request):
+    """View for index page of academicspam"""
+
     template = loader.get_template('index.html')
     context = RequestContext(request)
     return HttpResponse(template.render(context))
