@@ -18,7 +18,7 @@ class AutoLintTests(TestCase):
 
         test_modules = ' '.join([settings.PROJECT_ROOT + mod for mod in\
             ['/apps', '/academicspam']])
-        check_codes = ','.join(['W0401', 'W0611', 'C0103'])
+        check_codes = ','.join(['W0401', 'W0611']) #'C0103' Names
 
         # Call pylint
         command = '--reports=n --disable=all --ignore=migrations\
