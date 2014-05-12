@@ -1,2 +1,2 @@
-web: gunicorn academicspam.wsgi; celery -A academicspam worker -B
+web: gunicorn academicspam.wsgi
 worker: celery -A academicspam worker -B
