@@ -121,6 +121,8 @@ INSTALLED_APPS = (
     'storages',
     'south',
     'djcelery',
+    'djkombu',
+    'django_mailbox'
 )
 ########## END APPS CONFIGURATION
 
@@ -161,7 +163,7 @@ if os.environ.get('AWS_STORAGE_BUCKET_NAME_STATIC'):
 else:
     STATIC_URL = '/static/'
 
-# # Paths to serach for static files
+# Paths to serach for static files
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'academicspam/static'),
 )
@@ -211,28 +213,26 @@ COMPRESS_PRECOMPILERS = (
 
 
 ########## CELERY CONFIGURATION
-# CELERY_DEFAULT_QUEUE = os.environ.get('CELERY_DEFAULT_QUEUE',
-#                                         'celery-academicspam-development')
+# Setup djcelery to work with db backend
+import djcelery
+djcelery.setup_loader()
 
-# CELERY_QUEUES = {
-#     CELERY_DEFAULT_QUEUE: {
-#         'exchange': CELERY_DEFAULT_QUEUE,
-#         'binding_key': CELERY_DEFAULT_QUEUE,
-#     }
-# }
+# Set broker
+BROKER_URL = 'django://'
 
-# CELERY_RESULT_BACKEND = 'celery_s3.backends.S3Backend'
+# Set db results backend
+CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+
+# Setup celerybeat
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
 # Schedule periodic tasks
 CELERYBEAT_SCHEDULE = {
-    'say-hello-every-30-seconds': {
-        'task': 'spamparser.tasks.hello',
-        'schedule': timedelta(seconds=30)
+    'read-email-every-5min': {
+        'task': 'spamparser.tasks.get_email',
+        'schedule': timedelta(minutes=.5)
     },
 }
-
-# Set db results backend
-CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
 
 # For testing tasks
 CELERY_ALWAYS_EAGER = eval(os.environ.get('CELERY_ALWAYS_EAGER', 'False'))

@@ -10,3 +10,5 @@
 
 # Celerybeat data
 celerybeat-schedule.db
+celerybeat.pid
+celeryev.pid

@@ -1,10 +1,12 @@
 """Celery tasks for periodic email parsing"""
 
-from __future__ import absolute_import
-
 from celery import shared_task
 
+from django_mailbox.models import Mailbox
+
+###############################################################################
 @shared_task
-def hello(name='hello'):
-    """Hello world test for periodic task with celery"""
-    print 'Hello celerybeat'
+def get_email(name='get_email'):
+    """Retrieve email from IMAP account using django-mailbox"""
+    for mailbox in Mailbox.objects.all():
+        mailbox.get_new_mail()
