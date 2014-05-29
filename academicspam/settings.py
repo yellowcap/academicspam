@@ -228,10 +228,14 @@ CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
 # Schedule periodic tasks
 CELERYBEAT_SCHEDULE = {
-    'read-email-every-5min': {
+    'read-email': {
         'task': 'spamparser.tasks.get_email',
-        'schedule': timedelta(minutes=.5)
+        'schedule': timedelta(minutes=5)
     },
+    'parse-email': {
+        'task': 'spamparser.tasks.parse_email',
+        'schedule': timedelta(minutes=5)
+    }
 }
 
 # For testing tasks
