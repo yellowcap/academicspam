@@ -1,0 +1,9 @@
+<div class="parseresults">
+    {% for result in parseresults %}
+        <div class="result-item">
+            <p>Spammer: {{ result.from_address }}</p>
+            <p> Subject: {{ result.subject }}</p>
+            <p> Status: {{ result.get_confidence_display }}</p>
+        </div>
+    {% endfor %}
+</div>
