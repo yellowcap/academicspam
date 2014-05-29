@@ -54,7 +54,7 @@ class ParseResult(models.Model):
     confidence = models.CharField(max_length=2, choices=CONFIDENCE_LEVELS, default='no')
     
     def __unicode__(self):
-        return self.subject
+        return self.message.subject
 
     def parse(self):
         """Method that parses original email and stores results in model"""
