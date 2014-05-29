@@ -65,7 +65,7 @@ class ParseResult(models.Model):
         email_line_finder = re.compile('.*:.*<.*@.*\..*>.*', re.IGNORECASE)
         
         # Email in brackets <abc@abc.com>
-        email_finder = re.compile('<.*@.*\..*>', re.IGNORECASE)
+        email_finder = re.compile('<[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}>', re.IGNORECASE)
         
         # Last word in string
         category_finder = re.compile('\w+$', re.IGNORECASE) 
@@ -106,8 +106,9 @@ class ParseResult(models.Model):
         pattern = pattern[:-1]
         subject_line_finder = re.compile(pattern, re.IGNORECASE)
         subject_lines = subject_line_finder.findall(msg)
+        
         for subj in subject_lines:
-            subj = subj[0]
+            subj = [x for x in subj if x != ''][0]
             subj = subj.split(':')[1:]
             subj = ':'.join(subj).strip()
             self.subject = subj
